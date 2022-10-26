@@ -18,12 +18,14 @@ const LoginScreen = () => {
 
             if (status === Voximplant.ClientState.DISCONNECTED) {
                 await voximplant.connect();
+            } else if (status === Voximplant.ClientState.LOGGED_IN) {
+                redirectHome();
             }
         };
 
         connect();
     }, [])
-
+  
     const signIn = async () => {
         try {
             const fqUsername = `${username}@${APP_NAME}.${ACC_NAME}.voximplant.com`;
