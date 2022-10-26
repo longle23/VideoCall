@@ -26,7 +26,7 @@ const CallingScreen = () => {
             <View style={styles.cameraPreview}>
                 <Text style={styles.name}>{user?.user_display_name}</Text>
 
-                <Text style={styles.phoneNumber}>+123456</Text>
+                <Text style={styles.phoneNumber}>+1234567</Text>
             </View>
 
             <CallActionBox />

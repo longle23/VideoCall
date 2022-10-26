@@ -5866,7 +5866,12 @@
     "prop-types" "^15.7.2"
     "yargs" "^16.1.1"
 
-"react-native@*", "react-native@^0.70.3":
+"react-native-voximplant@^1.34.0":
+  "integrity" "sha512-LQrPlgCFoI33Riz/64IA06WYn2plnkKb2axz8f/xI90e5rP/lMwaHjI3XxvBcbaaQ40yCxueB0nVhVliWBYmnw=="
+  "resolved" "https://registry.npmjs.org/react-native-voximplant/-/react-native-voximplant-1.34.0.tgz"
+  "version" "1.34.0"
+
+"react-native@*", "react-native@^0.70.3", "react-native@>= 0.47.0":
   "integrity" "sha512-EiJxOonyvpSWa3Eik7a6YAD6QU8lK2W9M/DDdYlpWmIlGLCd5110rIpEZjxttsyrohxlRJAYRgJ9Tx2mMXqtfw=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.70.3.tgz"
   "version" "0.70.3"
