@@ -1,22 +1,46 @@
 import { StyleSheet, Text, View, Image, ImageBackground, TextInput, Pressable, Alert } from 'react-native'
-import React from 'react'
-import bg from '../../../assets/images/ios_bg.png'
+import React, { useEffect, useState } from 'react'
+
+import bg from '../../../assets/images/ios_bg.png';
 import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import { useRoute, useNavigation } from '@react-navigation/native';
+import { Voximplant } from 'react-native-voximplant';
 
 const IncomingCallScreen = () => {
 
+    const [caller, setCaller] = useState(null);
+    const route = useRoute();
+    const navigation = useNavigation();
+    const { call } = route.params;
+
+    useEffect(() => {
+        setCaller(call.getEndpoints()[0].displayName);
+
+        call.on(Voximplant.CallEvents.Disconnected, callEvent => {
+            navigation.navigate('Contacts');
+        });
+
+        return () => {
+            call.off(Voximplant.CallEvents.Disconnected);
+        };
+    }, []);
+
     const onDecline = () => {
-        console.warn("onDecline");
+        call.decline();
     }
 
     const onAccept = () => {
-        console.warn("onAccept");
-    }
+        navigation.navigate('Calling', {
+            call,
+            isIncomingCall: true,
+        });
+    };
 
     return (
         <View style={styles.root}>
             <ImageBackground source={bg} style={styles.bg} resizeMode="cover" >
-                <Text style={styles.name}>Long Lee</Text>
+                <Text style={styles.name}>{caller}</Text>
 
                 <Text style={styles.phoneNumber}>WhatsApp video...</Text>
 

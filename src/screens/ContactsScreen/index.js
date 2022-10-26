@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, FlatList, TextInput, Pressable } from 'react-na
 import React, { useState, useEffect } from 'react'
 
 import { useNavigation } from '@react-navigation/native';
+import { Voximplant } from 'react-native-voximplant';
 
 import dummyContacts from '../../../assets/data/contacts.json'
 
@@ -13,6 +14,17 @@ const ContactsScreen = () => {
     const [filteredContacts, setFilteredContacts] = useState(dummyContacts)
 
     const navigation = useNavigation();
+    const voximplant = Voximplant.getInstance();
+
+    useEffect(() => {
+        voximplant.on(Voximplant.ClientEvents.IncomingCall, incomingCallEvent => {
+            navigation.navigate('IncomingCall', { call: incomingCallEvent.call });
+        });
+
+        return () => {
+            voximplant.off(Voximplant.ClientEvents.IncomingCall);
+        }
+    }, []);
 
     // When searchTerm update change value, function will be called
     useEffect(() => {
@@ -21,7 +33,7 @@ const ContactsScreen = () => {
                 .toLowerCase()
                 .includes(searchTerm.toLowerCase())
         )
-        
+
         setFilteredContacts(newContacts)
     }, [searchTerm])
 
